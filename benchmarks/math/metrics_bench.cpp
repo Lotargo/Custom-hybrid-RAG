@@ -61,3 +61,33 @@ static void BM_L2DistanceAVX2(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_L2DistanceAVX2)->Range(8, 8192);
+
+#include "rag_engine/math/metrics_avx512.hpp"
+#include "rag_engine/math/simd_dispatch.hpp"
+
+static void BM_DotProductAVX512(benchmark::State& state) {
+    if (rag_engine::math::get_best_simd_type() != rag_engine::math::SimdType::AVX512) {
+        state.SkipWithMessage("CPU does not support AVX-512");
+        return;
+    }
+
+    auto a = generate_random_vector(static_cast<size_t>(state.range(0)));
+    auto b = generate_random_vector(static_cast<size_t>(state.range(0)));
+
+    for (auto _ : state) {
+        float result = dot_product_avx512(a, b);
+        benchmark::DoNotOptimize(result);
+    }
+}
+BENCHMARK(BM_DotProductAVX512)->Range(8, 8192);
+
+static void BM_DotProductDispatchAuto(benchmark::State& state) {
+    auto a = generate_random_vector(static_cast<size_t>(state.range(0)));
+    auto b = generate_random_vector(static_cast<size_t>(state.range(0)));
+
+    for (auto _ : state) {
+        float result = dot_product(a, b);
+        benchmark::DoNotOptimize(result);
+    }
+}
+BENCHMARK(BM_DotProductDispatchAuto)->Range(8, 8192);
