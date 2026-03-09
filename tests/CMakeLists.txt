@@ -6,6 +6,7 @@ add_executable(rag_engine_tests
     math/metrics_avx2_test.cpp
     math/metrics_avx512_test.cpp
     math/simd_dispatch_test.cpp
+    storage_test.cpp
 )
 
 target_link_libraries(rag_engine_tests PRIVATE
