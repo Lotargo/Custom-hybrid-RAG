@@ -70,7 +70,7 @@
 *   [ ] **[NEW]** SPDK integration for NVMe
 
 ### Этап 3: Поиск и Интеллектуальность
-*   [ ] HNSW graph construction
+*   [x] HNSW graph construction
 *   [ ] AI-guided prefetching
 *   [ ] Native Cross-Encoder Reranking
 

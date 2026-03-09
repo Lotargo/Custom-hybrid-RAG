@@ -9,6 +9,7 @@ add_executable(rag_engine_tests
     storage_test.cpp
     metadata_store_test.cpp
     wal_test.cpp
+    index/test_hnsw.cpp
 )
 
 target_link_libraries(rag_engine_tests PRIVATE
