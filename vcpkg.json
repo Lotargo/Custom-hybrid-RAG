@@ -1,0 +1,9 @@
+{
+  "name": "rag-engine",
+  "version": "0.1.0",
+  "description": "Distributed Hybrid RAG Engine in C++20",
+  "dependencies": [
+    "gtest",
+    "benchmark"
+  ]
+}
