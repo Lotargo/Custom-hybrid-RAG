@@ -4,7 +4,8 @@
   "description": "Distributed Hybrid RAG Engine in C++20",
   "dependencies": [
     "gtest",
-    "benchmark"
+    "benchmark",
+    "rocksdb"
   ],
   "builtin-baseline": "1e199d32ad53aab1defda61ce41c380302e3f95c"
 }
