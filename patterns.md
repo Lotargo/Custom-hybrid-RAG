@@ -71,6 +71,7 @@
 
 ### Этап 3: Поиск и Интеллектуальность
 *   [x] HNSW graph construction
+*   [x] Tombstoning & LSM-style Compaction
 *   [ ] AI-guided prefetching
 *   [ ] Native Cross-Encoder Reranking
 

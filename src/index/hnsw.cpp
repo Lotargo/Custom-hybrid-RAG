@@ -7,11 +7,13 @@
 #include <random>
 #include <cassert>
 #include <mutex>
+#include <fstream>
+#include <cstdio>
 
 namespace rag_engine::index {
 
 HnswIndex::HnswIndex(const std::string& filepath, HnswConfig config, bool read_only)
-    : config_(config), read_only_mode_(read_only), node_locks_(config.max_elements) {
+    : config_(config), read_only_mode_(read_only), node_locks_(config.max_elements), filepath_(filepath) {
 
     // Calculate total mmap size
     // 1. Header
@@ -104,6 +106,20 @@ HnswIndex::HnswIndex(const std::string& filepath, HnswConfig config, bool read_o
         max_level_.store(header_->max_level, std::memory_order_relaxed);
         entry_point_.store(header_->entry_point, std::memory_order_relaxed);
     }
+
+    // Load tombstones if exist
+    std::string tombstones_path = filepath_ + ".tombstones";
+    std::ifstream t_file(tombstones_path, std::ios::binary | std::ios::ate);
+    if (t_file.good()) {
+        std::streamsize size = t_file.tellg();
+        t_file.seekg(0, std::ios::beg);
+        if (size > 0) {
+            std::vector<char> buffer(size);
+            if (t_file.read(buffer.data(), size)) {
+                deleted_nodes_ = roaring::Roaring::readSafe(buffer.data(), size);
+            }
+        }
+    }
 }
 
 HnswIndex::~HnswIndex() {
@@ -111,6 +127,7 @@ HnswIndex::~HnswIndex() {
         header_->num_elements = num_elements_.load(std::memory_order_relaxed);
         header_->max_level = max_level_.load(std::memory_order_relaxed);
         header_->entry_point = entry_point_.load(std::memory_order_relaxed);
+        sync(); // Ensure tombstones are saved as well
     }
 }
 
@@ -120,7 +137,60 @@ void HnswIndex::sync() {
         header_->max_level = max_level_.load(std::memory_order_relaxed);
         header_->entry_point = entry_point_.load(std::memory_order_relaxed);
         mmap_file_->sync(0, 0, true);
+
+        // Save tombstones
+        std::shared_lock<std::shared_mutex> lock(deleted_nodes_lock_);
+        if (!deleted_nodes_.isEmpty()) {
+            size_t expected_size = deleted_nodes_.getSizeInBytes();
+            std::vector<char> buffer(expected_size);
+            deleted_nodes_.write(buffer.data());
+
+            std::ofstream t_file(filepath_ + ".tombstones", std::ios::binary | std::ios::trunc);
+            t_file.write(buffer.data(), expected_size);
+        } else {
+            // Remove file if empty
+            std::remove((filepath_ + ".tombstones").c_str());
+        }
     }
+}
+
+void HnswIndex::markDeleted(uint32_t id) {
+    if (read_only_mode_) {
+        throw std::runtime_error("Cannot mark deleted in read-only mode");
+    }
+    std::unique_lock<std::shared_mutex> lock(deleted_nodes_lock_);
+    deleted_nodes_.add(id);
+}
+
+bool HnswIndex::isDeleted(uint32_t id) const {
+    std::shared_lock<std::shared_mutex> lock(deleted_nodes_lock_);
+    return deleted_nodes_.contains(id);
+}
+
+std::vector<uint32_t> HnswIndex::compact(const std::string& new_filepath) const {
+    if (read_only_mode_) {
+        // Can still compact from read-only mode, it creates a new index.
+    }
+
+    HnswConfig new_config = config_;
+
+    // Create new index
+    HnswIndex new_index(new_filepath, new_config, false);
+
+    uint32_t current_id = 0;
+    size_t elements = size();
+
+    std::vector<uint32_t> mapping(elements, UINT32_MAX);
+
+    for (uint32_t i = 0; i < elements; ++i) {
+        if (!isDeleted(i)) {
+            new_index.add(current_id, getVector(i));
+            mapping[i] = current_id++;
+        }
+    }
+
+    new_index.sync();
+    return mapping;
 }
 
 int HnswIndex::getRandomLevel() {
@@ -287,13 +357,21 @@ std::vector<SearchResult> HnswIndex::searchLayer(
     std::unordered_set<uint32_t> visited;
 
     float dist = distance(query, getVector(ep));
-    top_candidates.push({ep, dist});
+    bool is_deleted = layer == 0 ? isDeleted(ep) : false;
+
+    if (!is_deleted) {
+        top_candidates.push({ep, dist});
+    }
     candidate_set.push({ep, dist});
     visited.insert(ep);
 
+    // We only filter out deleted nodes at layer 0. Upper layers (level > 0)
+    // are strictly for fast routing and MUST retain deleted nodes as valid targets,
+    // otherwise graph connectivity breaks and HNSW performance degrades.
     while (!candidate_set.empty()) {
         SearchResult c = candidate_set.top();
-        if (c.distance > top_candidates.top().distance) {
+        // Stop condition
+        if (top_candidates.size() >= ef && c.distance > top_candidates.top().distance) {
             break;
         }
         candidate_set.pop();
@@ -303,11 +381,18 @@ std::vector<SearchResult> HnswIndex::searchLayer(
             if (visited.find(e) == visited.end()) {
                 visited.insert(e);
                 float d = distance(query, getVector(e));
-                if (top_candidates.size() < ef || d < top_candidates.top().distance) {
+
+                bool is_e_deleted = layer == 0 ? isDeleted(e) : false;
+
+                bool is_good_candidate = top_candidates.size() < ef || d < top_candidates.top().distance;
+                if (is_good_candidate) {
                     candidate_set.push({e, d});
-                    top_candidates.push({e, d});
-                    if (top_candidates.size() > ef) {
-                        top_candidates.pop();
+
+                    if (!is_e_deleted) {
+                        top_candidates.push({e, d});
+                        if (top_candidates.size() > ef) {
+                            top_candidates.pop();
+                        }
                     }
                 }
             }
