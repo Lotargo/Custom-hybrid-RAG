@@ -3,6 +3,7 @@ target_sources(rag_engine_core PRIVATE
     storage/mmap_file.cpp
     storage/metadata_store.cpp
     storage/wal.cpp
+    index/hnsw.cpp
 )
 
 find_package(RocksDB CONFIG REQUIRED)
