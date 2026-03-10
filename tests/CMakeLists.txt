@@ -11,6 +11,9 @@ add_executable(rag_engine_tests
     wal_test.cpp
     index/test_hnsw.cpp
     index/hnsw_tombstone_test.cpp
+    test_compression.cpp
+    test_tokenizer.cpp
+    test_inverted_index.cpp
 )
 
 target_link_libraries(rag_engine_tests PRIVATE
