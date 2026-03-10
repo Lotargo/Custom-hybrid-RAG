@@ -77,6 +77,6 @@
 *   [ ] Native Cross-Encoder Reranking
 
 ### Этап 4: Enterprise и High-Load
-*   [ ] Roaring Bitmaps filtering
+*   [x] Roaring Bitmaps filtering
 *   [ ] Cache Partitioning (RDT/MPAM)
 *   [ ] Raft-based distribution

@@ -14,6 +14,9 @@ add_executable(rag_engine_tests
     test_compression.cpp
     test_tokenizer.cpp
     test_inverted_index.cpp
+    test_rrf.cpp
+    test_bloom_filter.cpp
+    test_document_filter.cpp
 )
 
 target_link_libraries(rag_engine_tests PRIVATE
