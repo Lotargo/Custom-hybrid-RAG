@@ -11,6 +11,7 @@ add_executable(rag_engine_tests
     wal_test.cpp
     index/test_hnsw.cpp
     index/hnsw_tombstone_test.cpp
+    index/test_hnsw_sift_recall.cpp
     test_compression.cpp
     test_tokenizer.cpp
     test_inverted_index.cpp
