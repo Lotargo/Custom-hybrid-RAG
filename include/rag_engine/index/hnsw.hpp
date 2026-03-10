@@ -10,6 +10,7 @@
 #include <optional>
 #include "rag_engine/storage/mmap_file.hpp"
 #include "rag_engine/math/simd_dispatch.hpp"
+#include <roaring/roaring.hh>
 
 namespace rag_engine::index {
 
@@ -86,6 +87,17 @@ public:
         return num_elements_.load(std::memory_order_acquire);
     }
 
+    // Mark a node as deleted (Tombstoning)
+    void markDeleted(uint32_t id);
+
+    // Check if a node is deleted
+    bool isDeleted(uint32_t id) const;
+
+    // Compact the index by removing deleted nodes and writing to a new file
+    // Returns a mapping of old_id to new_id (where missing/deleted nodes are e.g. -1 or ignored in mapping)
+    // We return a vector of size `size()` where result[old_id] = new_id, and UINT32_MAX if deleted.
+    std::vector<uint32_t> compact(const std::string& new_filepath) const;
+
 private:
     // Memory layout header
     struct Header {
@@ -109,6 +121,12 @@ private:
 
     // In-memory locks for each node (not persisted to mmap)
     std::vector<Spinlock> node_locks_;
+
+    // Tombstone bitmap for deleted nodes
+    roaring::Roaring deleted_nodes_;
+    mutable std::shared_mutex deleted_nodes_lock_;
+
+    std::string filepath_;
 
     // Pointers to mapped regions
     HnswNode* nodes_;

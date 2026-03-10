@@ -7,4 +7,5 @@ target_sources(rag_engine_core PRIVATE
 )
 
 find_package(RocksDB CONFIG REQUIRED)
-target_link_libraries(rag_engine_core PRIVATE RocksDB::rocksdb)
+find_package(roaring CONFIG REQUIRED)
+target_link_libraries(rag_engine_core PRIVATE RocksDB::rocksdb roaring::roaring)

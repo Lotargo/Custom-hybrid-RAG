@@ -10,6 +10,7 @@ add_executable(rag_engine_tests
     metadata_store_test.cpp
     wal_test.cpp
     index/test_hnsw.cpp
+    index/hnsw_tombstone_test.cpp
 )
 
 target_link_libraries(rag_engine_tests PRIVATE
