@@ -1,4 +1,6 @@
 #include "rag_engine/index/hnsw.hpp"
+#include "rag_engine/index/types.hpp"
+#include "rag_engine/math/simd_dispatch.hpp"
 #include <cmath>
 #include <queue>
 #include <unordered_set>

@@ -11,6 +11,7 @@
 #include "rag_engine/storage/mmap_file.hpp"
 #include "rag_engine/math/simd_dispatch.hpp"
 #include <roaring/roaring.hh>
+#include "rag_engine/index/types.hpp"
 
 namespace rag_engine::index {
 
@@ -49,19 +50,6 @@ struct HnswConfig {
     size_t M0 = 32;        // Max number of connections for layer 0
     size_t ef_construction = 100; // Size of the dynamic candidate list during construction
     uint32_t seed = 42;    // Random seed for level generation
-};
-
-// Result of a nearest neighbor search
-struct SearchResult {
-    uint32_t id;
-    float distance;
-
-    bool operator<(const SearchResult& other) const {
-        return distance < other.distance;
-    }
-    bool operator>(const SearchResult& other) const {
-        return distance > other.distance;
-    }
 };
 
 class HnswIndex {

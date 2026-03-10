@@ -4,6 +4,9 @@ target_sources(rag_engine_core PRIVATE
     storage/metadata_store.cpp
     storage/wal.cpp
     index/hnsw.cpp
+    index/rrf.cpp
+    index/bloom_filter.cpp
+    index/document_filter.cpp
 )
 
 find_package(RocksDB CONFIG REQUIRED)
