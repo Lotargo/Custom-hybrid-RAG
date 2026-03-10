@@ -72,6 +72,7 @@
 ### Этап 3: Поиск и Интеллектуальность
 *   [x] HNSW graph construction
 *   [x] Tombstoning & LSM-style Compaction
+*   [x] Inverted Index (BM25) with Elias-Fano & Varint
 *   [ ] AI-guided prefetching
 *   [ ] Native Cross-Encoder Reranking
 
