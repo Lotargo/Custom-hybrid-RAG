@@ -19,6 +19,9 @@ add_executable(rag_engine_tests
     test_bloom_filter.cpp
     test_document_filter.cpp
     test_thread_pool.cpp
+    network/protocol_tests.cpp
+    network/ring_buffer_tests.cpp
+    network/iouring_server_tests.cpp
 )
 
 target_link_libraries(rag_engine_tests PRIVATE

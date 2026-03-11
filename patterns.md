@@ -78,5 +78,6 @@
 
 ### Этап 4: Enterprise и High-Load
 *   [x] Roaring Bitmaps filtering
+*   [x] Kernel-Bypass I/O (`io_uring` + Zero-Allocation Ring Buffers)
 *   [ ] Cache Partitioning (RDT/MPAM)
 *   [ ] Raft-based distribution
