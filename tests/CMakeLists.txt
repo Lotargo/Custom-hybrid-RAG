@@ -1,4 +1,5 @@
 find_package(GTest CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 add_executable(sonatadb_tests
     test_main.cpp
@@ -24,9 +25,11 @@ add_executable(sonatadb_tests
     network/protocol_tests.cpp
     network/ring_buffer_tests.cpp
     network/iouring_server_tests.cpp
+    c_api_test.cpp
 )
 
 target_link_libraries(sonatadb_tests PRIVATE
+    sonatadb_c
     GTest::gtest_main
     sonatadb_core
     nlohmann_json::nlohmann_json

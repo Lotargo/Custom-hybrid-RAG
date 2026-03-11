@@ -75,6 +75,11 @@ public:
         return num_elements_.load(std::memory_order_acquire);
     }
 
+    // Get dimensionality of vectors
+    size_t getDim() const {
+        return config_.dim;
+    }
+
     // Mark a node as deleted (Tombstoning)
     void markDeleted(uint32_t id);
 
