@@ -23,3 +23,8 @@ find_path(LIBURING_INCLUDE_DIRS liburing.h)
 find_library(LIBURING_LIBRARIES uring)
 
 target_link_libraries(sonatadb_core PRIVATE RocksDB::rocksdb roaring::roaring ${LIBSTEMMER_LIBRARY} ${LIBURING_LIBRARIES})
+
+# C-API Shared Library
+add_library(sonatadb_c SHARED c_api/sonatadb_c.cpp)
+target_link_libraries(sonatadb_c PRIVATE sonatadb_core roaring::roaring)
+target_include_directories(sonatadb_c PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>)

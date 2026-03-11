@@ -1,5 +1,6 @@
 find_package(benchmark CONFIG REQUIRED)
 find_package(roaring CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 add_executable(sonatadb_benchmarks
     bench_main.cpp
