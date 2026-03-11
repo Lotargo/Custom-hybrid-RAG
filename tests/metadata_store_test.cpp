@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "rag_engine/storage/metadata_store.hpp"
+#include "sonatadb/storage/metadata_store.hpp"
 #include <filesystem>
 #include <string>
 
@@ -19,7 +19,7 @@ protected:
 };
 
 TEST_F(MetadataStoreTest, BasicPutGetRemove) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     MetadataStore store(TEST_DIR);
 
@@ -46,7 +46,7 @@ TEST_F(MetadataStoreTest, BasicPutGetRemove) {
 }
 
 TEST_F(MetadataStoreTest, SyncAndReopen) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     {
         MetadataStore store(TEST_DIR);

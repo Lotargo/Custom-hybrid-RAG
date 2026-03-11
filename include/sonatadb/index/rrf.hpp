@@ -1,9 +1,9 @@
 #pragma once
 
-#include "rag_engine/index/types.hpp"
+#include "sonatadb/index/types.hpp"
 #include <vector>
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 /**
  * Fuse results from multiple search engines (e.g., Vector Search + Keyword Search)
@@ -26,4 +26,4 @@ std::vector<SearchResult> reciprocal_rank_fusion(
     size_t top_n = 100
 );
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

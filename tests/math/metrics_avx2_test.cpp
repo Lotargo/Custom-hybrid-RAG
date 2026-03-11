@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <cmath>
-#include "rag_engine/math/metrics.hpp"
-#include "rag_engine/math/metrics_avx2.hpp"
+#include "sonatadb/math/metrics.hpp"
+#include "sonatadb/math/metrics_avx2.hpp"
 
-using namespace rag_engine::math;
+using namespace sonatadb::math;
 
 TEST(MetricsAVX2Test, DotProduct) {
     std::vector<float> a(15, 1.0f); // 15 elements to test non-multiple of 8

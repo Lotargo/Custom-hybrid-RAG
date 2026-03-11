@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "rag_engine/index/rrf.hpp"
+#include "sonatadb/index/rrf.hpp"
 
-using namespace rag_engine::index;
+using namespace sonatadb::index;
 
 TEST(RRFTest, FuseResults) {
     // Two simple lists: Vector and Lexical

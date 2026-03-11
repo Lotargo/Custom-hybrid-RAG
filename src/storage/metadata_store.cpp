@@ -1,9 +1,9 @@
-#include "rag_engine/storage/metadata_store.hpp"
+#include "sonatadb/storage/metadata_store.hpp"
 #include <rocksdb/db.h>
 #include <rocksdb/options.h>
 #include <rocksdb/status.h>
 
-namespace rag_engine::storage {
+namespace sonatadb::storage {
 
 MetadataStore::MetadataStore(const std::string& path) : path_(path) {
     rocksdb::Options options;
@@ -107,4 +107,4 @@ void MetadataStore::sync() {
     }
 }
 
-} // namespace rag_engine::storage
+} // namespace sonatadb::storage

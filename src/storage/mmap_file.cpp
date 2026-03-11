@@ -1,4 +1,4 @@
-#include "rag_engine/storage/mmap_file.hpp"
+#include "sonatadb/storage/mmap_file.hpp"
 
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -8,7 +8,7 @@
 #include <cerrno>
 #include <utility>
 
-namespace rag_engine::storage {
+namespace sonatadb::storage {
 
 MmapFile::MmapFile(const std::string& path, MmapMode mode)
     : mode_(mode), path_(path) {
@@ -176,4 +176,4 @@ void MmapFile::resize(size_t new_size) {
     }
 }
 
-} // namespace rag_engine::storage
+} // namespace sonatadb::storage

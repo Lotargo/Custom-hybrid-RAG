@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
-#include "network/ring_buffer.h"
+#include "sonatadb/network/ring_buffer.h"
 #include <vector>
 
-using namespace rag_engine::network;
+using namespace sonatadb::network;
 
 TEST(RingBufferTests, WriteAndRead) {
     RingBuffer rb(10);

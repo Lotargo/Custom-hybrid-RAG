@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include <vector>
-#include "rag_engine/math/metrics.hpp"
-#include "rag_engine/math/metrics_avx512.hpp"
-#include "rag_engine/math/simd_dispatch.hpp"
+#include "sonatadb/math/metrics.hpp"
+#include "sonatadb/math/metrics_avx512.hpp"
+#include "sonatadb/math/simd_dispatch.hpp"
 
-using namespace rag_engine::math;
+using namespace sonatadb::math;
 
 TEST(MetricsAVX512Test, DotProduct) {
     if (get_best_simd_type() != SimdType::AVX512) {

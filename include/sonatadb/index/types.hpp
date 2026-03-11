@@ -3,7 +3,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 // Result of a query, mapping a document ID to its distance/score
 struct SearchResult {
@@ -19,4 +19,4 @@ struct SearchResult {
     }
 };
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

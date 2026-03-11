@@ -1,10 +1,10 @@
-#include "network/protocol.h"
+#include "sonatadb/network/protocol.h"
 
 #include <stdexcept>
 #include <cstring>
 #include <bit>
 
-namespace rag_engine::network {
+namespace sonatadb::network {
 
 // Реализация CRC32 (полином 0xEDB88320)
 uint32_t Protocol::calculate_crc32(std::span<const uint8_t> data) {
@@ -83,4 +83,4 @@ bool Protocol::validate_payload(const PacketHeader& header, std::span<const uint
     return calculate_crc32(payload) == header.crc32;
 }
 
-} // namespace rag_engine::network
+} // namespace sonatadb::network

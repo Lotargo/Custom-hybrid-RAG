@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <cmath>
-#include "rag_engine/math/metrics.hpp"
+#include "sonatadb/math/metrics.hpp"
 
-using namespace rag_engine::math;
+using namespace sonatadb::math;
 
 TEST(MetricsTest, DotProductScalar) {
     std::vector<float> a = {1.0f, 2.0f, 3.0f};

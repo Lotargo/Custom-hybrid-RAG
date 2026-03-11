@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <libstemmer.h>
 
-namespace rag_engine::text {
+namespace sonatadb::text {
 
 class Tokenizer {
 public:
@@ -72,4 +72,4 @@ private:
     std::unordered_set<std::string> stop_words_;
 };
 
-} // namespace rag_engine::text
+} // namespace sonatadb::text

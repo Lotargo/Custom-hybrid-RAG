@@ -1,9 +1,9 @@
-#include "network/ring_buffer.h"
+#include "sonatadb/network/ring_buffer.h"
 
 #include <cstring>
 #include <algorithm>
 
-namespace rag_engine::network {
+namespace sonatadb::network {
 
 RingBuffer::RingBuffer(size_t capacity)
     : buffer_(capacity, 0), capacity_(capacity) {}
@@ -116,4 +116,4 @@ void RingBuffer::commit_write(size_t bytes) {
     }
 }
 
-} // namespace rag_engine::network
+} // namespace sonatadb::network

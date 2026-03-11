@@ -5,7 +5,7 @@
 #include <optional>
 #include <span>
 
-namespace rag_engine::network {
+namespace sonatadb::network {
 
 // Формат пакета:
 // 1 байт: Magic Byte (0x52 'R')
@@ -63,4 +63,4 @@ public:
     static uint32_t calculate_crc32(std::span<const uint8_t> data);
 };
 
-} // namespace rag_engine::network
+} // namespace sonatadb::network

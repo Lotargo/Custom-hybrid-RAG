@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include "rag_engine/inference/thread_pool.hpp"
+#include "sonatadb/inference/thread_pool.hpp"
 #include <numeric>
 #include <chrono>
 
-using namespace rag_engine::inference;
+using namespace sonatadb::inference;
 
 TEST(AffinityThreadPoolTest, BasicExecution) {
     // Create a pool with 2 threads bound to cores 0 and 1 (if available).

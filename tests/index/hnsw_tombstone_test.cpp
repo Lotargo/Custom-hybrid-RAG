@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include "rag_engine/index/hnsw.hpp"
+#include "sonatadb/index/hnsw.hpp"
 #include <filesystem>
 #include <vector>
 
-using namespace rag_engine::index;
+using namespace sonatadb::index;
 
 class HnswTombstoneTest : public ::testing::Test {
 protected:

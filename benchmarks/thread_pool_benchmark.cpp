@@ -1,5 +1,5 @@
 #include <benchmark/benchmark.h>
-#include "rag_engine/inference/thread_pool.hpp"
+#include "sonatadb/inference/thread_pool.hpp"
 #include <vector>
 #include <numeric>
 
@@ -7,7 +7,7 @@
 #include <sched.h>
 #endif
 
-using namespace rag_engine::inference;
+using namespace sonatadb::inference;
 
 // Helper to get available cores for benchmarking
 std::vector<int> get_available_cores() {

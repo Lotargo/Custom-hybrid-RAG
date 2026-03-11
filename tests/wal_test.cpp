@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "rag_engine/storage/wal.hpp"
+#include "sonatadb/storage/wal.hpp"
 
 #include <filesystem>
 #include <string>
@@ -21,7 +21,7 @@ protected:
 };
 
 TEST_F(WalTest, BasicAppendAndRecover) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     std::vector<WalEntry> recovered_entries;
     auto cb = [&](const WalEntry& e) {
@@ -59,7 +59,7 @@ TEST_F(WalTest, BasicAppendAndRecover) {
 }
 
 TEST_F(WalTest, EmptyRecover) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     std::vector<WalEntry> recovered_entries;
     auto cb = [&](const WalEntry& e) {

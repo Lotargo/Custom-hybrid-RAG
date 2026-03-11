@@ -1,4 +1,4 @@
-#include "rag_engine/index/hnsw.hpp"
+#include "sonatadb/index/hnsw.hpp"
 #include "../tests/sift_parser.hpp"
 #include <iostream>
 #include <vector>
@@ -6,8 +6,8 @@
 #include <iomanip>
 #include <filesystem>
 
-using namespace rag_engine::index;
-using namespace rag_engine::test_utils;
+using namespace sonatadb::index;
+using namespace sonatadb::test_utils;
 
 // Helper to calculate recall
 double calc_recall(const std::vector<std::vector<SearchResult>>& results,

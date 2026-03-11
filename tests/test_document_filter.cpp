@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "rag_engine/index/document_filter.hpp"
+#include "sonatadb/index/document_filter.hpp"
 
-using namespace rag_engine::index;
+using namespace sonatadb::index;
 
 TEST(DocumentFilterTest, InitializationAndContains) {
     DocumentFilter filter;

@@ -1,7 +1,7 @@
 {
-  "name": "rag-engine",
+  "name": "sonatadb",
   "version": "0.1.0",
-  "description": "Distributed Hybrid RAG Engine in C++20",
+  "description": "Distributed Hybrid SonataDB in C++20",
   "dependencies": [
     "gtest",
     "benchmark",

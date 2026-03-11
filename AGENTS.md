@@ -31,10 +31,10 @@ tar -xf sde.tar.xz --strip-components=1
 После сборки проекта (`cmake .. && ninja`) запускайте бинарники через `sde64` с флагом `-skx` (Skylake-X perfil) или `-future`:
 ```bash
 # Запуск юнит-тестов (AVX-512 тесты перестанут скипаться)
-/tmp/sde/sde64 -skx -- ./build/tests/rag_engine_tests
+/tmp/sde/sde64 -skx -- ./build/tests/sonatadb_tests
 
 # Запуск бенчмарков (для отладки падений, а не для замера времени)
-/tmp/sde/sde64 -skx -- ./build/benchmarks/rag_engine_benchmarks
+/tmp/sde/sde64 -skx -- ./build/benchmarks/sonatadb_benchmarks
 ```
 
 **Важное правило:** Никогда не предполагайте, что ваш AVX-512 код работает только потому, что он компилируется! Обязательно тестируйте его в Intel SDE.

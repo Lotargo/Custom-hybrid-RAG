@@ -6,7 +6,7 @@
 #include <span>
 #include <cstdint>
 
-namespace rag_engine::storage {
+namespace sonatadb::storage {
 
 enum class MmapMode {
     ReadOnly,
@@ -77,4 +77,4 @@ private:
     std::string path_;
 };
 
-} // namespace rag_engine::storage
+} // namespace sonatadb::storage

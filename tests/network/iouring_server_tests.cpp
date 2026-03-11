@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "network/iouring_server.h"
-#include "network/protocol.h"
+#include "sonatadb/network/iouring_server.h"
+#include "sonatadb/network/protocol.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -8,7 +8,7 @@
 #include <thread>
 #include <chrono>
 
-using namespace rag_engine::network;
+using namespace sonatadb::network;
 
 TEST(IoUringServerTests, PingPong) {
     int port = 9091;

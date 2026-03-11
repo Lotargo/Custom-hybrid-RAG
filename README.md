@@ -6,7 +6,7 @@
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![Performance](https://img.shields.io/badge/Performance-Zero--Allocation-orange.svg)
 
-**Custom Hybrid RAG Engine** — сверхбыстрый, распределенный гипер-масштабируемый движок для поиска (Vector + Full-text), построенный на принципах максимального контроля над железом и ОС. Проект ориентирован на использование в облачных инфраструктурах, HPC и на портативных устройствах (ARM).
+**Custom Hybrid SonataDB** — сверхбыстрый, распределенный гипер-масштабируемый движок для поиска (Vector + Full-text), построенный на принципах максимального контроля над железом и ОС. Проект ориентирован на использование в облачных инфраструктурах, HPC и на портативных устройствах (ARM).
 
 </div>
 
@@ -72,9 +72,9 @@
 
 ## Структура проекта
 
-- **`include/rag_engine/math/`**: Математическое ядро, SIMD-интринсики и диспетчеризация.
-- **`include/rag_engine/storage/`**: Низкоуровневая работа с диском (`mmap`), WAL и хранилище метаданных.
-- **`include/rag_engine/index/`**: Реализация поисковых индексов (HNSW).
+- **`include/sonatadb/math/`**: Математическое ядро, SIMD-интринсики и диспетчеризация.
+- **`include/sonatadb/storage/`**: Низкоуровневая работа с диском (`mmap`), WAL и хранилище метаданных.
+- **`include/sonatadb/index/`**: Реализация поисковых индексов (HNSW).
 - **`src/`**: Реализация всех модулей.
 - **`tests/`**: Юнит-тесты (GTest).
 - **`benchmarks/`**: Бенчмарки производительности (Google Benchmark).
@@ -118,16 +118,16 @@ cmake --build . -j$(nproc)
 
 ```bash
 # Обычный запуск (AVX-512 может скипаться, если CPU не поддерживает)
-./build/tests/rag_engine_tests
+./build/tests/sonatadb_tests
 
 # Запуск с эмуляцией AVX-512 (через Intel SDE)
-/path/to/sde64 -skx -- ./build/tests/rag_engine_tests
+/path/to/sde64 -skx -- ./build/tests/sonatadb_tests
 ```
 
 ### Запуск бенчмарков:
 
 ```bash
-./build/benchmarks/rag_engine_benchmarks
+./build/benchmarks/sonatadb_benchmarks
 ```
 
 ---

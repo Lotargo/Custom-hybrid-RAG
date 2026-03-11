@@ -8,12 +8,12 @@
 #include <span>
 #include <string>
 #include <optional>
-#include "rag_engine/storage/mmap_file.hpp"
-#include "rag_engine/math/simd_dispatch.hpp"
+#include "sonatadb/storage/mmap_file.hpp"
+#include "sonatadb/math/simd_dispatch.hpp"
 #include <roaring/roaring.hh>
-#include "rag_engine/index/types.hpp"
+#include "sonatadb/index/types.hpp"
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 // Spinlock for fine-grained node locking during neighbor updates
 class Spinlock {
@@ -159,4 +159,4 @@ private:
     ) const;
 };
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

@@ -1,10 +1,10 @@
 #include <benchmark/benchmark.h>
 #include <vector>
 #include <random>
-#include "rag_engine/math/metrics.hpp"
-#include "rag_engine/math/metrics_avx2.hpp"
+#include "sonatadb/math/metrics.hpp"
+#include "sonatadb/math/metrics_avx2.hpp"
 
-using namespace rag_engine::math;
+using namespace sonatadb::math;
 
 static std::vector<float> generate_random_vector(size_t size) {
     std::random_device rd;
@@ -62,11 +62,11 @@ static void BM_L2DistanceAVX2(benchmark::State& state) {
 }
 BENCHMARK(BM_L2DistanceAVX2)->Range(8, 8192);
 
-#include "rag_engine/math/metrics_avx512.hpp"
-#include "rag_engine/math/simd_dispatch.hpp"
+#include "sonatadb/math/metrics_avx512.hpp"
+#include "sonatadb/math/simd_dispatch.hpp"
 
 static void BM_DotProductAVX512(benchmark::State& state) {
-    if (rag_engine::math::get_best_simd_type() != rag_engine::math::SimdType::AVX512) {
+    if (sonatadb::math::get_best_simd_type() != sonatadb::math::SimdType::AVX512) {
         state.SkipWithMessage("CPU does not support AVX-512");
         return;
     }

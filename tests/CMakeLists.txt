@@ -1,6 +1,6 @@
 find_package(GTest CONFIG REQUIRED)
 
-add_executable(rag_engine_tests
+add_executable(sonatadb_tests
     test_main.cpp
     math/metrics_test.cpp
     math/metrics_avx2_test.cpp
@@ -24,10 +24,10 @@ add_executable(rag_engine_tests
     network/iouring_server_tests.cpp
 )
 
-target_link_libraries(rag_engine_tests PRIVATE
+target_link_libraries(sonatadb_tests PRIVATE
     GTest::gtest_main
-    rag_engine_core
+    sonatadb_core
 )
 
 include(GoogleTest)
-gtest_discover_tests(rag_engine_tests)
+gtest_discover_tests(sonatadb_tests)

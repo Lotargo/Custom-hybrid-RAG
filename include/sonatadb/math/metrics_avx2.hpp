@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <immintrin.h>
 
-namespace rag_engine::math {
+namespace sonatadb::math {
 
 /**
  * @brief Вычисляет скалярное произведение (Dot Product) двух векторов используя AVX2.
@@ -153,4 +153,4 @@ inline float cosine_similarity_avx2(std::span<const float> a, std::span<const fl
     return dot / (std::sqrt(norm_a) * std::sqrt(norm_b));
 }
 
-} // namespace rag_engine::math
+} // namespace sonatadb::math

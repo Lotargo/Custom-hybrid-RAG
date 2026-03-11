@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(RagEngine VERSION 0.1.0 LANGUAGES CXX)
+project(SonataDB VERSION 0.1.0 LANGUAGES CXX)
 
 # Включаем стандарт C++20 или C++23 (здесь используем C++20 как базу, можно C++23)
 set(CMAKE_CXX_STANDARD 20)
@@ -25,10 +25,10 @@ if(RAG_ENABLE_SANITIZERS)
 endif()
 
 # Главная библиотека
-add_library(rag_engine_core)
-target_include_directories(rag_engine_core PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+add_library(sonatadb_core)
+target_include_directories(sonatadb_core PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 find_package(Threads REQUIRED)
-target_link_libraries(rag_engine_core PRIVATE Threads::Threads)
+target_link_libraries(sonatadb_core PRIVATE Threads::Threads)
 
 # Подключаем модули
 add_subdirectory(src)

@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
-#include "rag_engine/index/hnsw.hpp"
+#include "sonatadb/index/hnsw.hpp"
 #include <vector>
 #include <random>
 #include <filesystem>
 #include <thread>
 
-using namespace rag_engine::index;
+using namespace sonatadb::index;
 
 class HnswIndexTest : public ::testing::Test {
 protected:

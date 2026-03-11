@@ -3,14 +3,14 @@
 #include <span>
 #include <stdexcept>
 #include <cmath>
-#include "rag_engine/math/metrics.hpp"
+#include "sonatadb/math/metrics.hpp"
 
 // Защита от компиляции на не-x86 архитектурах (например, ARM)
 #if defined(__x86_64__) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)
 
 #include <immintrin.h>
 
-namespace rag_engine::math {
+namespace sonatadb::math {
 
 #if defined(__GNUC__) || defined(__clang__)
 __attribute__((target("avx512f")))
@@ -126,11 +126,11 @@ inline float cosine_similarity_avx512(std::span<const float> a, std::span<const 
     return dot / (std::sqrt(norm_a) * std::sqrt(norm_b));
 }
 
-} // namespace rag_engine::math
+} // namespace sonatadb::math
 
 #else // Если это не x86 архитектура (например, ARM)
 
-namespace rag_engine::math {
+namespace sonatadb::math {
 
 inline float dot_product_avx512(std::span<const float> a, std::span<const float> b) {
     // Этот код никогда не должен вызываться на не-x86 архитектурах благодаря simd_dispatch
@@ -145,6 +145,6 @@ inline float cosine_similarity_avx512(std::span<const float> a, std::span<const 
     return cosine_similarity_scalar(a, b);
 }
 
-} // namespace rag_engine::math
+} // namespace sonatadb::math
 
 #endif
