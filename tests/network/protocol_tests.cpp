@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "network/protocol.h"
+#include "sonatadb/network/protocol.h"
 
-using namespace rag_engine::network;
+using namespace sonatadb::network;
 
 TEST(ProtocolTests, SerializeAndParse) {
     std::vector<uint8_t> payload = {0x01, 0x02, 0x03, 0x04};

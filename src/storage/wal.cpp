@@ -1,4 +1,4 @@
-#include "rag_engine/storage/wal.hpp"
+#include "sonatadb/storage/wal.hpp"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cerrno>
 
-namespace rag_engine::storage {
+namespace sonatadb::storage {
 
 // The header structure for each WAL record
 #pragma pack(push, 1)
@@ -187,4 +187,4 @@ void WriteAheadLog::recover(std::function<void(const WalEntry&)> callback) {
     ::close(read_fd);
 }
 
-} // namespace rag_engine::storage
+} // namespace sonatadb::storage

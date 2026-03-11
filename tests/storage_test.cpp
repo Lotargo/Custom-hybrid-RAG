@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "rag_engine/storage/mmap_file.hpp"
+#include "sonatadb/storage/mmap_file.hpp"
 
 #include <fstream>
 #include <filesystem>
@@ -27,7 +27,7 @@ protected:
 };
 
 TEST_F(MmapFileTest, ReadOnlyMapping) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     MmapFile file(TEST_FILE, MmapMode::ReadOnly);
 
@@ -42,7 +42,7 @@ TEST_F(MmapFileTest, ReadOnlyMapping) {
 }
 
 TEST_F(MmapFileTest, ReadWriteMapping) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     {
         MmapFile file(TEST_FILE, MmapMode::ReadWrite);
@@ -64,7 +64,7 @@ TEST_F(MmapFileTest, ReadWriteMapping) {
 }
 
 TEST_F(MmapFileTest, ResizeMapping) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     MmapFile file(TEST_FILE, MmapMode::ReadWrite);
     file.resize(100);
@@ -84,7 +84,7 @@ TEST_F(MmapFileTest, ResizeMapping) {
 }
 
 TEST_F(MmapFileTest, Advise) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     MmapFile file(TEST_FILE, MmapMode::ReadOnly);
     EXPECT_NO_THROW(file.advise(MmapAdvice::Sequential));
@@ -94,7 +94,7 @@ TEST_F(MmapFileTest, Advise) {
 }
 
 TEST_F(MmapFileTest, EmptyFileMapping) {
-    using namespace rag_engine::storage;
+    using namespace sonatadb::storage;
 
     const std::string EMPTY_FILE = "empty_test.bin";
     std::ofstream out(EMPTY_FILE, std::ios::binary);

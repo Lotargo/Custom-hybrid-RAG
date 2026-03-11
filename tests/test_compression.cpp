@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
-#include "rag_engine/compression/varint.hpp"
-#include "rag_engine/compression/elias_fano.hpp"
+#include "sonatadb/compression/varint.hpp"
+#include "sonatadb/compression/elias_fano.hpp"
 #include <vector>
 
 TEST(CompressionTest, VarintEncodeDecode) {
-    using namespace rag_engine::compression;
+    using namespace sonatadb::compression;
 
     std::vector<uint64_t> values = {0, 1, 127, 128, 255, 256, 16383, 16384, 1ULL << 32, 1ULL << 63};
     std::vector<uint8_t> buffer;
@@ -22,7 +22,7 @@ TEST(CompressionTest, VarintEncodeDecode) {
 }
 
 TEST(CompressionTest, EliasFanoBasic) {
-    using namespace rag_engine::compression;
+    using namespace sonatadb::compression;
 
     std::vector<uint64_t> values = {2, 5, 13, 27, 42, 100, 256, 1024, 4096};
     uint64_t max_val = 4096;

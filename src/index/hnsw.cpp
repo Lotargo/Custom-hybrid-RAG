@@ -1,6 +1,6 @@
-#include "rag_engine/index/hnsw.hpp"
-#include "rag_engine/index/types.hpp"
-#include "rag_engine/math/simd_dispatch.hpp"
+#include "sonatadb/index/hnsw.hpp"
+#include "sonatadb/index/types.hpp"
+#include "sonatadb/math/simd_dispatch.hpp"
 #include <cmath>
 #include <queue>
 #include <unordered_set>
@@ -12,7 +12,7 @@
 #include <fstream>
 #include <cstdio>
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 HnswIndex::HnswIndex(const std::string& filepath, HnswConfig config, bool read_only)
     : config_(config), read_only_mode_(read_only), node_locks_(config.max_elements), filepath_(filepath) {
@@ -204,7 +204,7 @@ int HnswIndex::getRandomLevel() {
 
 float HnswIndex::distance(std::span<const float> a, std::span<const float> b) const {
     // We use L2 distance. Can be configured.
-    return rag_engine::math::l2_distance(a, b);
+    return sonatadb::math::l2_distance(a, b);
 }
 
 std::span<const float> HnswIndex::getVector(uint32_t id) const {
@@ -464,4 +464,4 @@ std::vector<SearchResult> HnswIndex::search(std::span<const float> query, size_t
     return W;
 }
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

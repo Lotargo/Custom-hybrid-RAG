@@ -6,7 +6,7 @@
 #include <span>
 #include <stdexcept>
 
-namespace rag_engine::math {
+namespace sonatadb::math {
 
 // Концепт для проверки, что тип является арифметическим (float, double, int и т.д.)
 template <typename T>
@@ -80,4 +80,4 @@ inline T cosine_similarity_scalar(std::span<const T> a, std::span<const T> b) {
     return dot / (std::sqrt(norm_a) * std::sqrt(norm_b));
 }
 
-} // namespace rag_engine::math
+} // namespace sonatadb::math

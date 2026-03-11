@@ -4,7 +4,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 /**
  * A wrapper around roaring::Roaring bitmaps for filtering document IDs.
@@ -92,4 +92,4 @@ private:
     roaring::Roaring bitmap_;
 };
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

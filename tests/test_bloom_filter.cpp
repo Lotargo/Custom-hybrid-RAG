@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "rag_engine/index/bloom_filter.hpp"
+#include "sonatadb/index/bloom_filter.hpp"
 
-using namespace rag_engine::index;
+using namespace sonatadb::index;
 
 TEST(BloomFilterTest, Initialization) {
     BloomFilter bf(1000, 0.01);

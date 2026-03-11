@@ -1,5 +1,5 @@
 #include <benchmark/benchmark.h>
-#include "rag_engine/storage/mmap_file.hpp"
+#include "sonatadb/storage/mmap_file.hpp"
 
 #include <fstream>
 #include <filesystem>
@@ -50,9 +50,9 @@ BENCHMARK_F(MmapFixture, StdIfstreamRead)(benchmark::State& state) {
 
 BENCHMARK_F(MmapFixture, MmapRead)(benchmark::State& state) {
     for (auto _ : state) {
-        rag_engine::storage::MmapFile file(BENCH_FILE, rag_engine::storage::MmapMode::ReadOnly);
+        sonatadb::storage::MmapFile file(BENCH_FILE, sonatadb::storage::MmapMode::ReadOnly);
         // Advise the OS that we're going to read sequentially
-        file.advise(rag_engine::storage::MmapAdvice::Sequential);
+        file.advise(sonatadb::storage::MmapAdvice::Sequential);
 
         auto span = file.span();
 

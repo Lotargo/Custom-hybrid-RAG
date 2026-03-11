@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <iostream>
 
-namespace rag_engine::test_utils {
+namespace sonatadb::test_utils {
 
 class SiftParser {
 public:
@@ -73,4 +73,4 @@ public:
     }
 };
 
-} // namespace rag_engine::test_utils
+} // namespace sonatadb::test_utils

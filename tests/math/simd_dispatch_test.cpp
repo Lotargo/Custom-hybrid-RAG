@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <vector>
-#include "rag_engine/math/simd_dispatch.hpp"
+#include "sonatadb/math/simd_dispatch.hpp"
 
-using namespace rag_engine::math;
+using namespace sonatadb::math;
 
 TEST(SimdDispatchTest, AutoDispatchWorks) {
     std::vector<float> a = {1.0f, 2.0f, 3.0f, 4.0f};

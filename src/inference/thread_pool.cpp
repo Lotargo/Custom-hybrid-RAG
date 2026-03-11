@@ -1,4 +1,4 @@
-#include "rag_engine/inference/thread_pool.hpp"
+#include "sonatadb/inference/thread_pool.hpp"
 #include <iostream>
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -12,7 +12,7 @@
 #include <mach/thread_policy.h>
 #endif
 
-namespace rag_engine::inference {
+namespace sonatadb::inference {
 
 AffinityThreadPool::AffinityThreadPool(const std::vector<int>& core_ids)
     : stop_(false), affinity_success_(true) {
@@ -110,4 +110,4 @@ bool AffinityThreadPool::set_thread_affinity(int core_id) {
 #endif
 }
 
-} // namespace rag_engine::inference
+} // namespace sonatadb::inference

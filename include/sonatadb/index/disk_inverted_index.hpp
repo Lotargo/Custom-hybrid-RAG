@@ -10,10 +10,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "rag_engine/compression/elias_fano.hpp"
-#include "rag_engine/compression/varint.hpp"
+#include "sonatadb/compression/elias_fano.hpp"
+#include "sonatadb/compression/varint.hpp"
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 struct DiskPosting {
     uint64_t doc_id;
@@ -168,4 +168,4 @@ private:
     std::unordered_map<std::string, uint64_t> dictionary_;
 };
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

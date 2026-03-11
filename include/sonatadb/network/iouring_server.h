@@ -1,7 +1,7 @@
 #pragma once
 
-#include "network/ring_buffer.h"
-#include "network/protocol.h"
+#include "sonatadb/network/ring_buffer.h"
+#include "sonatadb/network/protocol.h"
 
 #include <liburing.h>
 #include <sys/socket.h>
@@ -12,7 +12,7 @@
 #include <thread>
 #include <functional>
 
-namespace rag_engine::network {
+namespace sonatadb::network {
 
 // Обработчик команды
 using CommandHandler = std::function<std::vector<uint8_t>(const PacketHeader& header, std::span<const uint8_t> payload)>;
@@ -69,4 +69,4 @@ private:
     int event_fd_;
 };
 
-} // namespace rag_engine::network
+} // namespace sonatadb::network

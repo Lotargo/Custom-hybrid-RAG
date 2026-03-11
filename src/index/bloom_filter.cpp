@@ -1,9 +1,9 @@
-#include "rag_engine/index/bloom_filter.hpp"
+#include "sonatadb/index/bloom_filter.hpp"
 #include <cmath>
 #include <cstring>
 #include <algorithm>
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 // MurmurHash3 core logic for 128-bit hash (x64) simplified
 static inline uint64_t rotl64(uint64_t x, int8_t r) {
@@ -147,4 +147,4 @@ void BloomFilter::clear() {
     std::fill(bitset_.begin(), bitset_.end(), 0);
 }
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

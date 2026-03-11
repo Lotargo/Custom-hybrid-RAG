@@ -9,11 +9,11 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "rag_engine/text/tokenizer.hpp"
-#include "rag_engine/compression/elias_fano.hpp"
-#include "rag_engine/compression/varint.hpp"
+#include "sonatadb/text/tokenizer.hpp"
+#include "sonatadb/compression/elias_fano.hpp"
+#include "sonatadb/compression/varint.hpp"
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 struct Posting {
     uint64_t doc_id;
@@ -140,10 +140,10 @@ public:
     }
 
 private:
-    rag_engine::text::Tokenizer tokenizer_;
+    sonatadb::text::Tokenizer tokenizer_;
     std::unordered_map<std::string, std::vector<Posting>> index_;
     uint64_t max_doc_id_;
     uint64_t num_docs_;
 };
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <bit>
 
-namespace rag_engine::compression {
+namespace sonatadb::compression {
 
 class EliasFanoEncoder {
 public:
@@ -177,4 +177,4 @@ private:
     size_t current_upper_pos_;
 };
 
-} // namespace rag_engine::compression
+} // namespace sonatadb::compression

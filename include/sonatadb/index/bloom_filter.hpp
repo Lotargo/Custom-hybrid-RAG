@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <string>
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 /**
  * A fast, 0-allocation (after initialization) Bloom Filter implementation.
@@ -71,4 +71,4 @@ private:
     void hash(const uint8_t* data, size_t len, uint64_t out[2]) const;
 };
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

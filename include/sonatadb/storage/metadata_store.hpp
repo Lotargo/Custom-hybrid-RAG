@@ -10,7 +10,7 @@ namespace rocksdb {
     class DB;
 }
 
-namespace rag_engine::storage {
+namespace sonatadb::storage {
 
 class MetadataError : public std::runtime_error {
 public:
@@ -45,4 +45,4 @@ private:
     std::string path_;
 };
 
-} // namespace rag_engine::storage
+} // namespace sonatadb::storage

@@ -1,4 +1,4 @@
-#include "network/iouring_server.h"
+#include "sonatadb/network/iouring_server.h"
 
 #include <iostream>
 #include <sys/socket.h>
@@ -9,7 +9,7 @@
 #include <cstring>
 #include <sys/eventfd.h>
 
-namespace rag_engine::network {
+namespace sonatadb::network {
 
 enum class EventType {
     Accept,
@@ -303,4 +303,4 @@ void IoUringServer::loop() {
     }
 }
 
-} // namespace rag_engine::network
+} // namespace sonatadb::network

@@ -1,8 +1,8 @@
-#include "rag_engine/index/rrf.hpp"
+#include "sonatadb/index/rrf.hpp"
 #include <unordered_map>
 #include <algorithm>
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 std::vector<SearchResult> reciprocal_rank_fusion(
     const std::vector<std::vector<SearchResult>>& results_list,
@@ -41,4 +41,4 @@ std::vector<SearchResult> reciprocal_rank_fusion(
     return fused_results;
 }
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

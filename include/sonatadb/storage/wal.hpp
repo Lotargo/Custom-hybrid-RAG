@@ -7,7 +7,7 @@
 #include <span>
 #include <cstdint>
 
-namespace rag_engine::storage {
+namespace sonatadb::storage {
 
 class WalError : public std::runtime_error {
 public:
@@ -61,4 +61,4 @@ private:
     std::string path_;
 };
 
-} // namespace rag_engine::storage
+} // namespace sonatadb::storage

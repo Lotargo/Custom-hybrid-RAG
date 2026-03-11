@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "rag_engine/index/hnsw.hpp"
+#include "sonatadb/index/hnsw.hpp"
 #include "../sift_parser.hpp"
 #include <vector>
 #include <string>
@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace rag_engine::index;
-using namespace rag_engine::test_utils;
+using namespace sonatadb::index;
+using namespace sonatadb::test_utils;
 
 class HnswRecallTest : public ::testing::Test {
 protected:

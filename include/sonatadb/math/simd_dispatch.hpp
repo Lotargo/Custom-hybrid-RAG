@@ -2,11 +2,11 @@
 
 #include <span>
 #include <stdexcept>
-#include "rag_engine/math/metrics.hpp"
-#include "rag_engine/math/metrics_avx2.hpp"
-#include "rag_engine/math/metrics_avx512.hpp"
+#include "sonatadb/math/metrics.hpp"
+#include "sonatadb/math/metrics_avx2.hpp"
+#include "sonatadb/math/metrics_avx512.hpp"
 
-namespace rag_engine::math {
+namespace sonatadb::math {
 
 enum class SimdType {
     Scalar,
@@ -101,4 +101,4 @@ inline float cosine_similarity(std::span<const float> a, std::span<const float> 
     }
 }
 
-} // namespace rag_engine::math
+} // namespace sonatadb::math

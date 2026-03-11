@@ -6,7 +6,7 @@
 #include <span>
 #include <stdexcept>
 
-namespace rag_engine::network {
+namespace sonatadb::network {
 
 // Простой неблокирующий Ring Buffer для Zero-Allocation сетевого транспорта
 // Память выделяется один раз при создании
@@ -53,4 +53,4 @@ private:
     bool is_full_ = false;
 };
 
-} // namespace rag_engine::network
+} // namespace sonatadb::network

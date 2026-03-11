@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <stdexcept>
 
-namespace rag_engine::compression {
+namespace sonatadb::compression {
 
 class Varint {
 public:
@@ -34,4 +34,4 @@ public:
     }
 };
 
-} // namespace rag_engine::compression
+} // namespace sonatadb::compression

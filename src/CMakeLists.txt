@@ -1,4 +1,4 @@
-target_sources(rag_engine_core PRIVATE
+target_sources(sonatadb_core PRIVATE
     dummy.cpp
     storage/mmap_file.cpp
     storage/metadata_store.cpp
@@ -22,4 +22,4 @@ find_library(LIBSTEMMER_LIBRARY stemmer)
 find_path(LIBURING_INCLUDE_DIRS liburing.h)
 find_library(LIBURING_LIBRARIES uring)
 
-target_link_libraries(rag_engine_core PRIVATE RocksDB::rocksdb roaring::roaring ${LIBSTEMMER_LIBRARY} ${LIBURING_LIBRARIES})
+target_link_libraries(sonatadb_core PRIVATE RocksDB::rocksdb roaring::roaring ${LIBSTEMMER_LIBRARY} ${LIBURING_LIBRARIES})

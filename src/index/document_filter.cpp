@@ -1,6 +1,6 @@
-#include "rag_engine/index/document_filter.hpp"
+#include "sonatadb/index/document_filter.hpp"
 
-namespace rag_engine::index {
+namespace sonatadb::index {
 
 DocumentFilter::DocumentFilter(const std::vector<uint32_t>& ids) {
     if (!ids.empty()) {
@@ -59,4 +59,4 @@ DocumentFilter DocumentFilter::operator-(const DocumentFilter& other) const {
     return DocumentFilter(bitmap_ - other.bitmap_);
 }
 
-} // namespace rag_engine::index
+} // namespace sonatadb::index

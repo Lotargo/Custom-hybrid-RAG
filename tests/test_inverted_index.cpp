@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
-#include "rag_engine/index/inverted_index_builder.hpp"
-#include "rag_engine/index/disk_inverted_index.hpp"
+#include "sonatadb/index/inverted_index_builder.hpp"
+#include "sonatadb/index/disk_inverted_index.hpp"
 #include <filesystem>
 #include <vector>
 
 TEST(InvertedIndexTest, BuildAndSerialize) {
-    using namespace rag_engine::index;
+    using namespace sonatadb::index;
 
     std::string temp_file = "test_index.bin";
 

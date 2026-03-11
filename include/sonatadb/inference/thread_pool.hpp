@@ -15,7 +15,7 @@
 #include <memory>
 #include <latch>
 
-namespace rag_engine::inference {
+namespace sonatadb::inference {
 
 /**
  * @brief Thread pool with thread affinity support.
@@ -121,4 +121,4 @@ private:
     bool set_thread_affinity(int core_id);
 };
 
-} // namespace rag_engine::inference
+} // namespace sonatadb::inference
