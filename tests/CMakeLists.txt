@@ -14,6 +14,8 @@ add_executable(sonatadb_tests
     index/test_hnsw_sift_recall.cpp
     test_compression.cpp
     test_tokenizer.cpp
+    test_bpe_tokenizer.cpp
+    test_wordpiece_tokenizer.cpp
     test_inverted_index.cpp
     test_rrf.cpp
     test_bloom_filter.cpp
@@ -27,6 +29,7 @@ add_executable(sonatadb_tests
 target_link_libraries(sonatadb_tests PRIVATE
     GTest::gtest_main
     sonatadb_core
+    nlohmann_json::nlohmann_json
 )
 
 include(GoogleTest)

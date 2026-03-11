@@ -6,12 +6,14 @@ add_executable(sonatadb_benchmarks
     math/metrics_bench.cpp
     storage_benchmark.cpp
     thread_pool_benchmark.cpp
+    bpe_benchmark.cpp
 )
 
 target_link_libraries(sonatadb_benchmarks PRIVATE
     benchmark::benchmark
     benchmark::benchmark_main
     sonatadb_core
+    nlohmann_json::nlohmann_json
 )
 
 add_executable(hnsw_parameter_tuner hnsw_parameter_tuner.cpp)
