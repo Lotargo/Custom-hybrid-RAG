@@ -27,6 +27,8 @@ endif()
 # Главная библиотека
 add_library(rag_engine_core)
 target_include_directories(rag_engine_core PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+find_package(Threads REQUIRED)
+target_link_libraries(rag_engine_core PRIVATE Threads::Threads)
 
 # Подключаем модули
 add_subdirectory(src)

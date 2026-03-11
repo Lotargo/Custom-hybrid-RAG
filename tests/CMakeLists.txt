@@ -18,6 +18,7 @@ add_executable(rag_engine_tests
     test_rrf.cpp
     test_bloom_filter.cpp
     test_document_filter.cpp
+    test_thread_pool.cpp
 )
 
 target_link_libraries(rag_engine_tests PRIVATE

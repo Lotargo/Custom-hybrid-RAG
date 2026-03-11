@@ -7,6 +7,7 @@ target_sources(rag_engine_core PRIVATE
     index/rrf.cpp
     index/bloom_filter.cpp
     index/document_filter.cpp
+    inference/thread_pool.cpp
 )
 
 find_package(RocksDB CONFIG REQUIRED)
