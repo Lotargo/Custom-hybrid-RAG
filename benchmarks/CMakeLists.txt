@@ -8,6 +8,7 @@ add_executable(sonatadb_benchmarks
     storage_benchmark.cpp
     thread_pool_benchmark.cpp
     bpe_benchmark.cpp
+    onnx_benchmark.cpp
 )
 
 target_link_libraries(sonatadb_benchmarks PRIVATE
@@ -19,3 +20,11 @@ target_link_libraries(sonatadb_benchmarks PRIVATE
 
 add_executable(hnsw_parameter_tuner hnsw_parameter_tuner.cpp)
 target_link_libraries(hnsw_parameter_tuner PRIVATE sonatadb_core roaring::roaring-headers-cpp)
+
+# Generate dummy ONNX model for benchmarks if it doesn't exist
+add_custom_command(
+    TARGET sonatadb_benchmarks PRE_BUILD
+    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/../tests/generate_dummy_model.py
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating dummy ONNX model for benchmarks"
+)
