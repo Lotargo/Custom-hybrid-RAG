@@ -8,6 +8,8 @@ target_sources(sonatadb_core PRIVATE
     index/bloom_filter.cpp
     index/document_filter.cpp
     inference/thread_pool.cpp
+    inference/onnx_runner.cpp
+    inference/inference_pool.cpp
     network/protocol.cpp
     network/ring_buffer.cpp
     network/iouring_server.cpp
@@ -22,7 +24,9 @@ find_library(LIBSTEMMER_LIBRARY stemmer)
 find_path(LIBURING_INCLUDE_DIRS liburing.h)
 find_library(LIBURING_LIBRARIES uring)
 
-target_link_libraries(sonatadb_core PRIVATE RocksDB::rocksdb roaring::roaring ${LIBSTEMMER_LIBRARY} ${LIBURING_LIBRARIES})
+find_package(onnxruntime CONFIG REQUIRED)
+
+target_link_libraries(sonatadb_core PRIVATE RocksDB::rocksdb roaring::roaring ${LIBSTEMMER_LIBRARY} ${LIBURING_LIBRARIES} onnxruntime::onnxruntime)
 
 # C-API Shared Library
 add_library(sonatadb_c SHARED c_api/sonatadb_c.cpp)
