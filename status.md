@@ -26,20 +26,20 @@
 ## 🔴 Требует доработки для поддержки Windows (Главный приоритет)
 
 ### 1. Подсистема хранения (Storage Layer)
-*   [ ] **Портирование `MmapFile` на Windows API:**
+*   [x] **Портирование `MmapFile` на Windows API:**
     *   *Текущее состояние:* Использует POSIX `<sys/mman.h>`, `mmap`, `munmap`, `madvise`, `msync`, `ftruncate`.
     *   *Задача:* Добавить Windows-реализацию (`CreateFileMapping`, `MapViewOfFile`, `UnmapViewOfFile`, `FlushViewOfFile`, `SetEndOfFile`).
-*   [ ] **Портирование `WriteAheadLog` (WAL) на Windows API:**
+*   [x] **Портирование `WriteAheadLog` (WAL) на Windows API:**
     *   *Текущее состояние:* Использует POSIX `<unistd.h>`, `open`, `write`, `pread`, `fsync`.
     *   *Задача:* Перевести на стандартные C++ потоки (`std::fstream`), портативные функции C-Runtime (`_open`, `_write`, `_commit`) или Win32 API (`CreateFile`, `WriteFile`, `ReadFile` с `OVERLAPPED`).
 
 ### 2. Сетевой транспорт (Network Layer)
-*   [ ] **Создание портативного сетевого бэкенда (TCP Server):**
+*   [x] **Создание портативного сетевого бэкенда (TCP Server):**
     *   *Текущее состояние:* Сетевой сервер жестко завязан на Linux-специфичный интерфейс `io_uring` ([iouring_server.cpp](file:///f:/projects/Custom-hybrid-RAG/src/network/iouring_server.cpp)).
     *   *Задача:* Добавить кроссплатформенный сетевой бэкенд (например, на `Boost.Asio` или через стандартные сокеты Berkeley/Winsock), который будет собираться на Windows, оставив `io_uring` как оптимизацию под Linux.
 
 ### 3. Сборочная система
-*   [ ] **Адаптация `CMakeLists.txt` под MSVC и Windows:**
+*   [x] **Адаптация `CMakeLists.txt` под MSVC и Windows:**
     *   Исключить обязательное требование `liburing` на Windows.
     *   Настроить автоматическое подключение зависимостей (RocksDB, roaring, onnxruntime) через Windows-версию `vcpkg`.
 

@@ -27,17 +27,19 @@ add_executable(sonatadb_tests
     c_api_test.cpp
     ../src/c_api/sonatadb_c.cpp
     test_onnx_runner.cpp
+    network/tcp_server_tests.cpp
 )
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    target_sources(sonatadb_tests PRIVATE network/iouring_server_tests.cpp)
-endif()
 
 target_link_libraries(sonatadb_tests PRIVATE
     GTest::gtest_main
     sonatadb_core
     nlohmann_json::nlohmann_json
 )
+
+if(WIN32)
+    target_link_libraries(sonatadb_tests PRIVATE ws2_32)
+endif()
+
 
 # Повторно используем прекомпилированные заголовки для ускорения сборки тестов
 target_precompile_headers(sonatadb_tests REUSE_FROM sonatadb_core)

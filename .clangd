@@ -1,0 +1,6 @@
+CompileFlags:
+  Add:
+    - "-If:/projects/Custom-hybrid-RAG/include"
+    - "-If:/projects/Custom-hybrid-RAG/src"
+    - "-If:/projects/Custom-hybrid-RAG/build/vcpkg_installed/x64-windows/include"
+    - "-std=c++20"

@@ -81,6 +81,6 @@
 ### Этап 4: Enterprise и High-Load
 *   [x] Roaring Bitmaps filtering
 *   [x] Kernel-Bypass I/O (`io_uring` + Zero-Allocation Ring Buffers) (Linux-only)
-*   [ ] **[NEW]** Windows-compatible Network Server fallback (Winsock / Boost.Asio)
+*   [x] **[NEW]** Windows-compatible Network Server fallback (Winsock / Boost.Asio)
 *   [ ] Cache Partitioning (RDT/MPAM) (Postponed)
 *   [ ] Raft-based distribution (Postponed)
