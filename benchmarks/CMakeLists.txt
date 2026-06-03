@@ -18,13 +18,19 @@ target_link_libraries(sonatadb_benchmarks PRIVATE
     nlohmann_json::nlohmann_json
 )
 
+# Повторно используем прекомпилированные заголовки для ускорения сборки бенчмарков
+target_precompile_headers(sonatadb_benchmarks REUSE_FROM sonatadb_core)
+
 add_executable(hnsw_parameter_tuner hnsw_parameter_tuner.cpp)
 target_link_libraries(hnsw_parameter_tuner PRIVATE sonatadb_core roaring::roaring-headers-cpp)
+target_precompile_headers(hnsw_parameter_tuner REUSE_FROM sonatadb_core)
+
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 # Generate dummy ONNX model for benchmarks if it doesn't exist
 add_custom_command(
     TARGET sonatadb_benchmarks PRE_BUILD
-    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/../tests/generate_dummy_model.py
+    COMMAND Python3::Interpreter ${CMAKE_CURRENT_SOURCE_DIR}/../tests/generate_dummy_model.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Generating dummy ONNX model for benchmarks"
 )

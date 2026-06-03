@@ -25,7 +25,12 @@ graph_def = helper.make_graph(
 )
 
 # Create the model
-model_def = helper.make_model(graph_def, producer_name='sonatadb-test')
+model_def = helper.make_model(
+    graph_def,
+    producer_name='sonatadb-test',
+    ir_version=8,
+    opset_imports=[helper.make_operatorsetid("", 15)]
+)
 
 # Save it to bytes
 with open('dummy_model.onnx', 'wb') as f:

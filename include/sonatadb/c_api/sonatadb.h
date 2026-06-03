@@ -9,6 +9,16 @@
 extern "C" {
 #endif
 
+#ifdef _WIN32
+  #ifdef sonatadb_c_EXPORTS
+    #define SONATADB_API __declspec(dllexport)
+  #else
+    #define SONATADB_API __declspec(dllimport)
+  #endif
+#else
+  #define SONATADB_API
+#endif
+
 // ============================================================================
 // Types
 // ============================================================================
@@ -32,7 +42,7 @@ typedef struct {
  * @return The number of bytes written, excluding the null terminator.
  *         If 0 is returned, no error occurred or the buffer is too small.
  */
-size_t sonatadb_get_last_error_message(char* buffer, size_t buffer_size);
+SONATADB_API size_t sonatadb_get_last_error_message(char* buffer, size_t buffer_size);
 
 // ============================================================================
 // HNSW Index
@@ -50,14 +60,14 @@ size_t sonatadb_get_last_error_message(char* buffer, size_t buffer_size);
  * @param index_out Pointer to the created index.
  * @return 0 on success, non-zero on error.
  */
-int sonatadb_hnsw_create(const char* filepath, size_t dim, size_t max_elements, size_t M, size_t ef_construction, bool read_only, sonatadb_hnsw_t** index_out);
+SONATADB_API int sonatadb_hnsw_create(const char* filepath, size_t dim, size_t max_elements, size_t M, size_t ef_construction, bool read_only, sonatadb_hnsw_t** index_out);
 
 /**
  * @brief Frees the given HNSW index.
  *
  * @param index The index to free.
  */
-void sonatadb_hnsw_free(sonatadb_hnsw_t* index);
+SONATADB_API void sonatadb_hnsw_free(sonatadb_hnsw_t* index);
 
 /**
  * @brief Inserts a vector into the HNSW index.
@@ -67,7 +77,7 @@ void sonatadb_hnsw_free(sonatadb_hnsw_t* index);
  * @param id The ID to associate with the vector.
  * @return 0 on success, non-zero on error.
  */
-int sonatadb_hnsw_insert(sonatadb_hnsw_t* index, const float* vector, uint32_t id);
+SONATADB_API int sonatadb_hnsw_insert(sonatadb_hnsw_t* index, const float* vector, uint32_t id);
 
 /**
  * @brief Searches the HNSW index for the nearest neighbors of a query vector.
@@ -81,7 +91,7 @@ int sonatadb_hnsw_insert(sonatadb_hnsw_t* index, const float* vector, uint32_t i
  * @param num_results_out Pointer to a variable to store the actual number of results returned.
  * @return 0 on success, non-zero on error.
  */
-int sonatadb_hnsw_search(sonatadb_hnsw_t* index, const float* query_vector, size_t k, size_t ef_search, sonatadb_search_result_t* results, size_t* num_results_out);
+SONATADB_API int sonatadb_hnsw_search(sonatadb_hnsw_t* index, const float* query_vector, size_t k, size_t ef_search, sonatadb_search_result_t* results, size_t* num_results_out);
 
 #ifdef __cplusplus
 }

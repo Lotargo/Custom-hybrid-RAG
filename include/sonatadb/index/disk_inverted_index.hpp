@@ -5,11 +5,8 @@
 #include <unordered_map>
 #include <cstdint>
 #include <stdexcept>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-
+#include "sonatadb/storage/mmap_file.hpp"
+#include <memory>
 #include "sonatadb/compression/elias_fano.hpp"
 #include "sonatadb/compression/varint.hpp"
 
@@ -23,36 +20,15 @@ struct DiskPosting {
 class DiskInvertedIndex {
 public:
     DiskInvertedIndex(const std::string& filepath) {
-        fd_ = open(filepath.c_str(), O_RDONLY);
-        if (fd_ == -1) {
-            throw std::runtime_error("Failed to open index file: " + filepath);
-        }
-
-        struct stat sb;
-        if (fstat(fd_, &sb) == -1) {
-            close(fd_);
-            throw std::runtime_error("Failed to stat index file: " + filepath);
-        }
-
-        size_ = sb.st_size;
-        data_ = static_cast<const uint8_t*>(mmap(nullptr, size_, PROT_READ, MAP_PRIVATE, fd_, 0));
-        if (data_ == MAP_FAILED) {
-            close(fd_);
-            throw std::runtime_error("Failed to mmap index file: " + filepath);
-        }
+        mmap_file_ = std::make_unique<sonatadb::storage::MmapFile>(filepath, sonatadb::storage::MmapMode::ReadOnly);
+        data_ = static_cast<const uint8_t*>(mmap_file_->data());
+        size_ = mmap_file_->size();
 
         parse_header();
         parse_dictionary();
     }
 
-    ~DiskInvertedIndex() {
-        if (data_ != MAP_FAILED) {
-            munmap(const_cast<uint8_t*>(data_), size_);
-        }
-        if (fd_ != -1) {
-            close(fd_);
-        }
-    }
+    ~DiskInvertedIndex() = default;
 
     // Disable copy
     DiskInvertedIndex(const DiskInvertedIndex&) = delete;
@@ -94,14 +70,14 @@ public:
         uint64_t tf_buffer_size = read_uint64();
 
         // Create EliasFanoDecoder
-        compression::EliasFanoDecoder ef_decoder(lower_bits, upper_bits, num_elements, lower_bits_size);
+        sonatadb::compression::EliasFanoDecoder ef_decoder(lower_bits, upper_bits, num_elements, lower_bits_size);
 
         // Decode TFs
         size_t tf_offset = offset;
         std::vector<uint64_t> tfs;
         tfs.reserve(num_elements);
         while (tf_offset < offset + tf_buffer_size) {
-            tfs.push_back(compression::Varint::decode(data_, size_, tf_offset));
+            tfs.push_back(sonatadb::compression::Varint::decode(data_, size_, tf_offset));
         }
 
         // Combine into Postings
@@ -154,7 +130,7 @@ private:
         postings_start_offset_ = offset + 8; // skip postings_size (8 bytes)
     }
 
-    int fd_;
+    std::unique_ptr<sonatadb::storage::MmapFile> mmap_file_;
     const uint8_t* data_;
     size_t size_;
 

@@ -60,24 +60,27 @@
 ### Этап 1: Вычисления и Диспетчеризация
 *   [x] SIMD Metrics (AVX2/512)
 *   [x] Hardware-Agnostic Dispatch
-*   [ ] Adaptive JIT (Experimental)
+*   [ ] Adaptive JIT (Experimental - Postponed)
 
 ### Этап 2: Хранилище (Storage Layer)
-*   [x] mmap-first storage (`MmapFile`)
-*   [x] Reliability Layer (`WriteAheadLog`)
+*   [x] mmap-first storage (`MmapFile`) (Linux-only)
+*   [x] **[NEW]** Windows-native port for `MmapFile` (Win32 MapViewOfFile)
+*   [x] Reliability Layer (`WriteAheadLog`) (Linux-only)
+*   [x] **[NEW]** Windows-native port for `WriteAheadLog` (Win32/C-Runtime I/O)
 *   [x] Metadata Storage (`MetadataStore`)
 *   [ ] Parent-Child logic (RAG-level integration)
-*   [ ] **[NEW]** SPDK integration for NVMe
+*   [ ] **[NEW]** SPDK integration for NVMe (Postponed)
 
 ### Этап 3: Поиск и Интеллектуальность
 *   [x] HNSW graph construction
 *   [x] Tombstoning & LSM-style Compaction
 *   [x] Inverted Index (BM25) with Elias-Fano & Varint
-*   [ ] AI-guided prefetching
-*   [ ] Native Cross-Encoder Reranking
+*   [ ] AI-guided prefetching (Postponed)
+*   [ ] Native Cross-Encoder Reranking (Postponed)
 
 ### Этап 4: Enterprise и High-Load
 *   [x] Roaring Bitmaps filtering
-*   [x] Kernel-Bypass I/O (`io_uring` + Zero-Allocation Ring Buffers)
-*   [ ] Cache Partitioning (RDT/MPAM)
-*   [ ] Raft-based distribution
+*   [x] Kernel-Bypass I/O (`io_uring` + Zero-Allocation Ring Buffers) (Linux-only)
+*   [ ] **[NEW]** Windows-compatible Network Server fallback (Winsock / Boost.Asio)
+*   [ ] Cache Partitioning (RDT/MPAM) (Postponed)
+*   [ ] Raft-based distribution (Postponed)

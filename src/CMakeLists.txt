@@ -12,21 +12,25 @@ target_sources(sonatadb_core PRIVATE
     inference/inference_pool.cpp
     network/protocol.cpp
     network/ring_buffer.cpp
-    network/iouring_server.cpp
 )
 
 find_package(RocksDB CONFIG REQUIRED)
 find_package(roaring CONFIG REQUIRED)
 find_path(LIBSTEMMER_INCLUDE_DIR libstemmer.h)
 find_library(LIBSTEMMER_LIBRARY stemmer)
-
-# Подключаем liburing
-find_path(LIBURING_INCLUDE_DIRS liburing.h)
-find_library(LIBURING_LIBRARIES uring)
-
 find_package(onnxruntime CONFIG REQUIRED)
 
-target_link_libraries(sonatadb_core PRIVATE RocksDB::rocksdb roaring::roaring ${LIBSTEMMER_LIBRARY} ${LIBURING_LIBRARIES} onnxruntime::onnxruntime)
+target_link_libraries(sonatadb_core PRIVATE RocksDB::rocksdb roaring::roaring ${LIBSTEMMER_LIBRARY} onnxruntime::onnxruntime)
+
+# Подключаем liburing и сервер только для Linux
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    find_path(LIBURING_INCLUDE_DIRS liburing.h)
+    find_library(LIBURING_LIBRARIES uring)
+    
+    target_sources(sonatadb_core PRIVATE network/iouring_server.cpp)
+    target_link_libraries(sonatadb_core PRIVATE ${LIBURING_LIBRARIES})
+    target_compile_definitions(sonatadb_core PRIVATE SONATADB_USE_IO_URING)
+endif()
 
 # C-API Shared Library
 add_library(sonatadb_c SHARED c_api/sonatadb_c.cpp)

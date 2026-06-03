@@ -8,7 +8,10 @@
     "rocksdb",
     "roaring",
     "libstemmer",
-    "liburing",
+    {
+      "name": "liburing",
+      "platform": "linux"
+    },
     "nlohmann-json",
     "onnxruntime"
   ],

@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <span>
 #include <cstdint>
+#include <cstddef>
 
 namespace sonatadb::storage {
 
@@ -70,7 +71,12 @@ public:
 private:
     void cleanup();
 
+#ifdef _WIN32
+    void* fd_ = (void*)-1;             // Windows HANDLE (INVALID_HANDLE_VALUE)
+    void* mapping_handle_ = nullptr;   // Windows file mapping HANDLE
+#else
     int fd_ = -1;
+#endif
     void* data_ = nullptr;
     size_t size_ = 0;
     MmapMode mode_ = MmapMode::ReadOnly;

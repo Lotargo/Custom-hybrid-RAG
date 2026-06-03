@@ -24,25 +24,33 @@ add_executable(sonatadb_tests
     test_thread_pool.cpp
     network/protocol_tests.cpp
     network/ring_buffer_tests.cpp
-    network/iouring_server_tests.cpp
     c_api_test.cpp
+    ../src/c_api/sonatadb_c.cpp
     test_onnx_runner.cpp
 )
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_sources(sonatadb_tests PRIVATE network/iouring_server_tests.cpp)
+endif()
+
 target_link_libraries(sonatadb_tests PRIVATE
-    sonatadb_c
     GTest::gtest_main
     sonatadb_core
     nlohmann_json::nlohmann_json
 )
 
+# Повторно используем прекомпилированные заголовки для ускорения сборки тестов
+target_precompile_headers(sonatadb_tests REUSE_FROM sonatadb_core)
+
 include(GoogleTest)
 gtest_discover_tests(sonatadb_tests)
+
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 # Generate dummy ONNX model for tests
 add_custom_command(
     TARGET sonatadb_tests PRE_BUILD
-    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/generate_dummy_model.py
+    COMMAND Python3::Interpreter ${CMAKE_CURRENT_SOURCE_DIR}/generate_dummy_model.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Generating dummy ONNX model for tests"
 )

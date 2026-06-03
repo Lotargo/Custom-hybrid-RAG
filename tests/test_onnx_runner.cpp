@@ -18,7 +18,7 @@ using namespace sonatadb::inference;
 TEST(OnnxRunnerTest, InvalidModelDataThrows) {
     std::vector<uint8_t> bad_data = {0x01, 0x02, 0x03}; // Not a valid ONNX model
     EXPECT_THROW({
-        OnnxModelRunner runner(std::span<const uint8_t>(bad_data));
+        OnnxModelRunner runner{std::span<const uint8_t>{bad_data}};
     }, std::exception); // Ort::Exception inherits from std::exception
 }
 

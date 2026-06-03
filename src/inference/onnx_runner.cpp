@@ -29,7 +29,8 @@ void OnnxModelRunner::initialize_session(const std::string* model_path, std::spa
 
     if (model_path) {
 #ifdef _WIN32
-        std::wstring w_model_path(model_path->begin(), model_path->end());
+        std::wstring w_model_path;
+        w_model_path.assign(model_path->begin(), model_path->end());
         session_ = std::make_unique<Ort::Session>(*env_, w_model_path.c_str(), session_options);
 #else
         session_ = std::make_unique<Ort::Session>(*env_, model_path->c_str(), session_options);

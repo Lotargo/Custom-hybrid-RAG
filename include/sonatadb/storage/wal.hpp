@@ -56,7 +56,11 @@ public:
 private:
     void cleanup();
 
+#ifdef _WIN32
+    void* fd_ = (void*)-1; // Windows HANDLE
+#else
     int fd_ = -1;
+#endif
     size_t size_ = 0;
     std::string path_;
 };
